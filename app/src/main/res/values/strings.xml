@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Self-ServiceFood</string>
+    <string name="ent_email">Enter Email</string>
+    <string name="ent_pass">Enter Password</string>
+    <string name="conf_pass">Confirm Password</string>
+    <string name="app_label">Confirm Password</string>
+    <string name="search_hint">Confirm Password</string>
+</resources>
