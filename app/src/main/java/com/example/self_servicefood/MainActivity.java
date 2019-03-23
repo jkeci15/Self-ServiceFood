@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else {
-            Intent intent = new Intent(MainActivity.this,OrderList.class);
+//            TODO: Have to be careful where to link
+            Intent intent = new Intent(MainActivity.this,SearchActivity.class);
             startActivity(intent);
             finish();
         }

@@ -23,6 +23,7 @@
         <activity android:name=".MenuList" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".OrderList" />
+        <activity android:name=".ConfirmOrderActivity" />
 
     </application>
 

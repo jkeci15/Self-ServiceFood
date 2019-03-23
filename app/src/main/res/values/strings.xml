@@ -8,4 +8,5 @@
     <string name="enter_name">Enter Name</string>
     <string name="signup_surname">Enter Surname</string>
     <string name="register">Register</string>
+    <string name="continuePayement">Continue To Payment</string>
 </resources>

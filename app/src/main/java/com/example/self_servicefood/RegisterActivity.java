@@ -15,6 +15,7 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         signupEmail = findViewById(R.id.sign_up_email);
         signupPassword = findViewById(R.id.sign_up_password);
         signupConfirmPassword = findViewById(R.id.confirm);
@@ -42,7 +43,7 @@ public class RegisterActivity extends Activity {
 
         signupButton.setOnClickListener(v->{
 //            if (signupPassword.getText().toString().equals(signupConfirmPassword.getText().toString())) {
-////                create the new User
+////                create the new User and go to Search Activity
 //            }
         });
     }

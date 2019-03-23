@@ -3,7 +3,6 @@ package com.example.self_servicefood;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class OrderHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

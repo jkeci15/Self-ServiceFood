@@ -1,6 +1,7 @@
 //package com.example.self_servicefood;
 //
 //import android.content.Context;
+//import android.support.annotation.LayoutRes;
 //import android.support.annotation.NonNull;
 //import android.support.v7.widget.RecyclerView;
 //import android.view.LayoutInflater;
@@ -8,49 +9,49 @@
 //
 //import java.util.List;
 //
-//import model.Item;
+//import model.Category;
 //
-//public class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
+//
+//class CategoryAdapter extends RecyclerView.Adapter<CategoryHolder> {
+//
 //    private OnItemClick onItemClick;
 //    private Context context;
-//    private List<Item> objects;
+//    private List<Category> objects;
 //    private int resource;
 //
-//    public ItemAdapter(OnItemClick onItemClick, Context context, List<Item> objects, int resource) {
-//        this.onItemClick = onItemClick;
+//    public CategoryAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Category> objects, OnItemClick onItemClick) {
 //        this.context = context;
 //        this.objects = objects;
 //        this.resource = resource;
+//        this.onItemClick = onItemClick;
 //    }
-//
-//    @NonNull
 //    @Override
-//    public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//    public CategoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        return new ItemHolder(LayoutInflater.from(context).inflate(resource, parent, false), onItemClick);
+//        return new CategoryHolder(LayoutInflater.from(context).inflate(resource, parent, false), onItemClick);
 //    }
 //
 //    @Override
-//    public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-//
-//        Item item = objects.get(position);
-//        holder.textView.setText(item.getId());
+//    public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
+//        Category notes = objects.get(position);
+//        holder.textView.setText(notes.getId());
 //    }
+//
 //
 //    @Override
 //    public int getItemCount() {
 //        return objects.size();
 //    }
 //
-//    public Item getItem(int position)
+//
+//    public Category getItem(int position)
 //    {
 //        return objects.get(position);
 //    }
 //
-//    public void remove(Item notes)
+//    public void remove(Category notes)
 //    {
 //        objects.remove(notes);
 //        notifyDataSetChanged();
 //    }
-//
 //}

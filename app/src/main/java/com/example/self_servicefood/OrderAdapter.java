@@ -50,7 +50,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderHolder> {
         return objects.get(position);
     }
 
-    public void remove(User notes)
+    public void remove(Order notes)
     {
         objects.remove(notes);
         notifyDataSetChanged();
