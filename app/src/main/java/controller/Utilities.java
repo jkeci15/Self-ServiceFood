@@ -1,4 +1,4 @@
-package com.example.note_taking_application;
+package controller;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
