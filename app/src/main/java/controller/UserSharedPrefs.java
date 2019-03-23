@@ -1,11 +1,11 @@
-package not_needed.db;
+package controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
-import model.Users;
+import model.User;
 
 public class UserSharedPrefs {
 
@@ -16,17 +16,17 @@ public class UserSharedPrefs {
 
 
 
-    public static void saveUser(Context context, Users user){
+    public static void saveUser(Context context, User user){
         SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFKEY,Context.MODE_PRIVATE);
         sharedPreferences.edit().putString(USER_KEY, new Gson().toJson(user)).apply();
 
     }
 
 
-    public static Users getUser(Context context)
+    public static User getUser(Context context)
     {
         SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFKEY,Context.MODE_PRIVATE);
-        return new Gson().fromJson(sharedPreferences.getString(USER_KEY, "\n"),Users.class);
+        return new Gson().fromJson(sharedPreferences.getString(USER_KEY, "\n"),User.class);
     }
 
     public static void clear(Context context){

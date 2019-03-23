@@ -10,8 +10,7 @@ public class User {
     private String picture;
     private int business_id;
 
-    public User(int id, String email, String name, String surname, String password, int type, String picture, int business_id) {
-        this.id = id;
+    public User(int id,String email, String name, String surname, String password, int type, String picture, int business_id) {
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -19,6 +18,10 @@ public class User {
         this.type = type;
         this.picture = picture;
         this.business_id = business_id;
+        this.id = id;
+    }
+    public User(){
+
     }
 
     public int getId() {

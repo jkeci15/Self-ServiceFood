@@ -5,4 +5,7 @@
     <string name="conf_pass">Confirm Password</string>
     <string name="app_label">Confirm Password</string>
     <string name="search_hint">Confirm Password</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="signup_surname">Enter Surname</string>
+    <string name="register">Register</string>
 </resources>

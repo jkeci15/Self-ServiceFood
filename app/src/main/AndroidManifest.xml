@@ -20,6 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MenuList" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".OrderList" />
 
     </application>
 

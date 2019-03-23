@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
-import model.User;
 
 public class RegisterActivity extends Activity {
     public EditText signupEmail,signupPassword,signupConfirmPassword,name,surname;
@@ -42,12 +41,9 @@ public class RegisterActivity extends Activity {
         });
 
         signupButton.setOnClickListener(v->{
-            if (signupPassword.getText().toString().equals(signupConfirmPassword.getText().toString())) {
-
-
-
-
-            }
+//            if (signupPassword.getText().toString().equals(signupConfirmPassword.getText().toString())) {
+////                create the new User
+//            }
         });
     }
 }
