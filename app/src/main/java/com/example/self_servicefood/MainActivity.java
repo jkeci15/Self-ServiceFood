@@ -42,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
+        else {
+            Intent intent = new Intent(MainActivity.this,OrderList.class);
+            startActivity(intent);
+            finish();
+        }
+
 //        depending on user type set the Content View either activity_main or activity_order
         setContentView(R.layout.activity_main);
 
