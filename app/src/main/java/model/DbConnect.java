@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Driver;
 /**
  * @desc A singleton database access class for MySQL
  * @author Ramindu
@@ -14,8 +15,8 @@ public final class DbConnect {
     public static DbConnect db;
 
     private DbConnect() {
-        //String url= "jdbc:mysql://130.226.142.46:3306/";
-        String url = "jdbc:mysql://mysql.itu.dk:3306/";
+        String url= "jdbc:mysql://130.226.142.46:3306/";
+        //String url = "jdbc:mysql://mysql.itu.dk:3306/";
         String dbName = "SelfService2000";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "mcjorgel";
