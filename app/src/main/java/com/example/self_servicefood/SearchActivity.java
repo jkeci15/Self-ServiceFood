@@ -7,14 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
-
 import java.util.List;
-
 import controller.Utilities;
 import model.Business;
 import retrofit2.Call;
@@ -23,11 +24,15 @@ import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity implements OnItemClick, Callback<List<Business>> {
     public RecyclerView orderLayout;
-    public OrderAdapter nAdapter;
+    public SearchAdapter nAdapter;
 
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.activity_main);
+        orderLayout = findViewById(R.id.businesslist);
+        orderLayout.setLayoutManager(new LinearLayoutManager(this));
+        orderLayout.setItemAnimator(new DefaultItemAnimator());
+        orderLayout.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
         if (Utilities.isOnline(this)){
 
 //            Conduct the Search here
