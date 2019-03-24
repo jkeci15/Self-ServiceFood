@@ -3,7 +3,15 @@ package model;
 public class OrderItem {
     private int order_id;
     private int item_id;
+    private Item item;
     private int quantity;
+
+    public OrderItem(int order_id, int item_id, Item item, int quantity) {
+        this.order_id = order_id;
+        this.item_id = item_id;
+        this.item = item;
+        this.quantity = quantity;
+    }
 
     public OrderItem(int order_id, int item_id, int quantity) {
         this.order_id = order_id;
