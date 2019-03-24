@@ -16,10 +16,10 @@ import model.Item;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
-    private List<Category> list;
-    private HashMap<Category, List<Item>> hashMap;
+    private List<String> list;
+    private HashMap<String, List<Item>> hashMap;
 
-    public ExpandableListAdapter(Context context, List<Category> list, HashMap<Category, List<Item>> hashMap) {
+    public ExpandableListAdapter(Context context, List<String> list, HashMap<String, List<Item>> hashMap) {
         this.context = context;
         this.list = list;
         this.hashMap = hashMap;

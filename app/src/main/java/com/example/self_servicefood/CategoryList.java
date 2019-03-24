@@ -15,9 +15,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import controller.UserSharedPrefs;
 import controller.Utilities;
 import model.Category;
+import model.DbConnect;
 import model.Item;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,9 +31,11 @@ public class CategoryList extends AppCompatActivity implements OnItemClick, Call
     public ExpandableListView categoryLayout;
     public ExpandableListAdapter listAdapter;
     public ItemAdapter nAdapter;
-    public List<Category> listHeader;
-    public HashMap<Category,List<Item>> listHashMap;
+    public List<String> listHeader;
+    public List<Item> items;
+    public HashMap<String,List<Item>> listHashMap;
     public Button proceedButton;
+    DbConnect dbConnect = DbConnect.getDbCon();
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -42,6 +47,7 @@ public class CategoryList extends AppCompatActivity implements OnItemClick, Call
 
         proceedButton = findViewById(R.id.proceedButton);
         proceedButton.setOnClickListener(v->{
+
             Intent intent = new Intent(CategoryList.this,ConfirmOrderActivity.class);
             startActivity(intent);
             finish();
@@ -50,23 +56,20 @@ public class CategoryList extends AppCompatActivity implements OnItemClick, Call
 //        categoryLayout.setItemAnimator(new DefaultItemAnimator());
 //        categoryLayout.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
 
-        if (Utilities.isOnline(this)) {
 
 //            TODO: Show items divided into categories and clickable + -
             initData();
-        }
-        else {
-            Toast.makeText(CategoryList.this,"Network isn't available!", Toast.LENGTH_LONG).show();
-        }
+
     }
 
     private void initData() {
-        listHeader = new ArrayList<>();
-        listHashMap = new HashMap<>();
-//        add Categories of food
-        List<String> items = new ArrayList<>();
-//      add items
 
+        listHashMap = dbConnect.getMenuByBusinessId(UserSharedPrefs.getBusiness(CategoryList.this).getId());
+//        add Categories of food
+        for (Map.Entry<String, List<Item>> entry : listHashMap.entrySet()) {
+            listHeader.add(entry.getKey());
+            nAdapter = new ItemAdapter(this,CategoryList.this,entry.getValue(),R.id.each_item_name);
+        }
     }
 
     @Override
@@ -79,7 +82,6 @@ public class CategoryList extends AppCompatActivity implements OnItemClick, Call
 //                intent.putExtra("id",item);
 //                startActivity(intent);
 //                finish();
-
             case R.id.each_item_add:
 //                Add the item to order
                 Item item = nAdapter.getItem(position);

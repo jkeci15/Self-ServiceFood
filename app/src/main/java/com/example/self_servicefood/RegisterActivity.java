@@ -1,14 +1,19 @@
 package com.example.self_servicefood;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
+import controller.UserSharedPrefs;
+import model.DbConnect;
+import model.User;
 
-public class RegisterActivity extends Activity {
+
+public class RegisterActivity extends AppCompatActivity {
     public EditText signupEmail,signupPassword,signupConfirmPassword,name,surname;
     public Button signupButton;
     @Override
@@ -21,29 +26,17 @@ public class RegisterActivity extends Activity {
         signupConfirmPassword = findViewById(R.id.confirm);
         name = findViewById(R.id.signup_name);
         surname = findViewById(R.id.signup_surname);
-
-        signupEmail.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-//                requestGetEmails("130.",)
-//                check whether the email is already taken or not
-            }
-        });
+        DbConnect dbConnect = DbConnect.getDbCon();
 
         signupButton.setOnClickListener(v->{
-//            if (signupPassword.getText().toString().equals(signupConfirmPassword.getText().toString())) {
-////                create the new User and go to Search Activity
+
+//          create the new User and go to Search Activity
+            User newUser = dbConnect.createUser(name.getText().toString(),surname.getText().toString(),
+                    signupEmail.getText().toString(),signupPassword.getText().toString(),3,0);
+            UserSharedPrefs.saveUser(this,newUser);
+            Intent intent = new Intent(RegisterActivity.this,SearchActivity.class);
+            startActivity(intent);
+            finish();
 //            }
         });
     }

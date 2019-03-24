@@ -224,9 +224,9 @@ public final class DbConnect {
         return businesses;
     }
 
-    public Map<String, List<Item>> getMenuByBusinessId(int business_id){
+    public HashMap<String, List<Item>> getMenuByBusinessId(int business_id){
         //maps category to items in that category
-        Map<String, List<Item>> menu = new HashMap<>();
+        HashMap<String, List<Item>> menu = new HashMap<>();
 
         String query= "Select items.*, categories.name as category_name from items, categories where" +
                 " items.category_id = category.id and items.business_id=" + business_id + ";";

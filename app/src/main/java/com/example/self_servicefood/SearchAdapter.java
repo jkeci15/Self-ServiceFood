@@ -19,6 +19,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
     private List<Business> objects;
     private int resource;
 
+    public SearchAdapter(Context context, int resource, List<Business> objects, OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+        this.context = context;
+        this.objects = objects;
+        this.resource = resource;
+    }
+
     @NonNull
     @Override
     public SearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

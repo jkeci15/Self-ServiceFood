@@ -15,9 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
+
 import java.util.List;
+
+import controller.UserSharedPrefs;
 import controller.Utilities;
 import model.Business;
+import model.DbConnect;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,32 +30,34 @@ public class SearchActivity extends AppCompatActivity implements OnItemClick, Ca
     public RecyclerView orderLayout;
     public SearchAdapter nAdapter;
 
-    protected void onCreate(Bundle bundle){
+    protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_main);
 
         orderLayout = findViewById(R.id.businesslist);
         orderLayout.setLayoutManager(new LinearLayoutManager(this));
         orderLayout.setItemAnimator(new DefaultItemAnimator());
-        orderLayout.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
-        if (Utilities.isOnline(this)){
+        orderLayout.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        DbConnect dbConnect = DbConnect.getDbCon();
 
-//            Conduct the Search here
-
+////            Conduct the Search here
+//      Fill adapter with business items
+        List<Business> businessList = dbConnect.getBusinesses();
+        nAdapter = new SearchAdapter(SearchActivity.this, R.layout.activity_each_business, businessList, this);
 // Get the intent, verify the action and get the query
-            Intent intent = getIntent();
-            if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-                String query = intent.getStringExtra(SearchManager.QUERY);
-                doMySearch(query);
-            }
-        }
-
-    }
-
-    private void doMySearch(String query) {
-//        Get businesses
-//        Filter them
-    }
+//        Intent intent = getIntent();
+//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+//            String query = intent.getStringExtra(SearchManager.QUERY);
+//            doMySearch(query);
+//        }
+//    }
+//
+//
+//    private void doMySearch(String query) {
+////        Get businesses
+////        Filter them
+//
+   }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,7 +66,7 @@ public class SearchActivity extends AppCompatActivity implements OnItemClick, Ca
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        ComponentName componentName = new ComponentName(this,SearchActivity.class);
+        ComponentName componentName = new ComponentName(this, SearchActivity.class);
         assert searchManager != null;
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
         return true;
@@ -69,14 +75,14 @@ public class SearchActivity extends AppCompatActivity implements OnItemClick, Ca
     @Override
     public void itemClick(View view, int position) {
         switch (view.getId()){
-            case R.id.action_search:
-//                Do something
+
             case R.id.each_business_name:
+
+                UserSharedPrefs.saveBusiness(this,nAdapter.getItemint(position));
                 Intent intent = new Intent(SearchActivity.this,CategoryList.class);
                 startActivity(intent);
                 finish();
-//                save the business data in order to present correct categories in the
-//                CategoryList.java
+
 
         }
 
