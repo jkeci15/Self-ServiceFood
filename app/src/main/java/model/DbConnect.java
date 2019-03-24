@@ -13,6 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.transform.Result;
+
 /**
  * @desc A singleton database access class for MySQL
  */
@@ -230,9 +232,8 @@ public final class DbConnect {
         return menu;
     }
 
-    //TODO: I forgot to get the items of the order
-    public List<Order> getOrdersByCustomerId(int customer_id){
-        List<Order> orders = new LinkedList<>();
+    public Map<Order, List<OrderItem>> getOrdersByCustomerId(int customer_id){
+        Map<Order, List<OrderItem>> orders = new HashMap<>();
 
         String query= "Select * from orders where user_id=" + customer_id + ";";
 
@@ -243,11 +244,39 @@ public final class DbConnect {
                 int id = Integer.parseInt(result.getString("id"));
                 Timestamp time = Timestamp.valueOf(result.getString("time"));
                 int user_id = Integer.parseInt(result.getString("user_id"));
-                int bus_id = Integer.parseInt(result.getString("bus_id"));
+                int business_id = Integer.parseInt(result.getString("business_id"));
                 double total = Double.parseDouble(result.getString("total"));
                 int state = Integer.parseInt(result.getString("state"));
 
-                orders.add(new Order(id, time, user_id, bus_id, total,state));
+                Order order = new Order(id, time, user_id, business_id, total,state);
+
+                query = "Select orderitems.*,items.* from orderitems, items" +
+                        " where orderitems.order_id= " + id + "' and " +
+                        "orderitems.item_id = items.id";
+
+                ResultSet orderItemsResult = query(query);
+                List<OrderItem> orderItems = new ArrayList<>();
+
+                while (orderItemsResult.next()){
+                    int order_id = Integer.parseInt(result.getString("order_id"));
+                    int item_id = Integer.parseInt(result.getString("item_id"));
+                    int quantity = Integer.parseInt(result.getString("quantity"));
+//                    We already have the business_id
+//                    int business_id = Integer.parseInt(result.getString("business_id"));
+                    String name = result.getString("name");
+                    int stock_left = Integer.parseInt(result.getString("stock_left"));
+                    double price = Integer.parseInt(result.getString("price"));
+                    String description = result.getString("description");
+                    String picture = result.getString("picture");
+                    int category_id = Integer.parseInt(result.getString("category_id"));
+
+                    Item item = new Item(item_id, business_id, name, stock_left, price, description, picture, category_id);
+                    OrderItem orderItem =  new OrderItem(order_id, item_id, item, quantity);
+
+                    orderItems.add(orderItem);
+                }
+
+                orders.put(order, orderItems);
             }
         }
         catch (SQLException e) {
@@ -317,32 +346,59 @@ public final class DbConnect {
 
         return false;
     }
-    
-    //TODO: I forgot to get the items of the order
-    public List<Order> getOrdersByBusinessId(int business_id){
-        List<Order> orders = new LinkedList<>();
 
-        //TODO: Check if orders table in the db has bus_id or business_id
-        String query= "Select * from orders where bus_id=" + business_id + ";";
+    public  Map<Order, List<OrderItem>> getOrdersByBusinessId(int business_id) {
+        Map<Order, List<OrderItem>> orders = new HashMap<>();
+
+        String query = "Select * from orders where business_id=" + business_id + ";";
 
         try {
             ResultSet result = query(query);
 
-            while (result.next()){
+            while (result.next()) {
                 int id = Integer.parseInt(result.getString("id"));
                 Timestamp time = Timestamp.valueOf(result.getString("time"));
                 int user_id = Integer.parseInt(result.getString("user_id"));
-                int bus_id = Integer.parseInt(result.getString("bus_id"));
+//                Given as a parameter
+//                int business_id = Integer.parseInt(result.getString("business_id"));
                 double total = Double.parseDouble(result.getString("total"));
                 int state = Integer.parseInt(result.getString("state"));
 
-                orders.add(new Order(id, time, user_id, bus_id, total,state));
+                Order order = new Order(id, time, user_id, business_id, total, state);
+
+                query = "Select orderitems.*,items.* from orderitems, items" +
+                        " where orderitems.order_id= " + id + "' and " +
+                        "orderitems.item_id = items.id";
+
+                ResultSet orderItemsResult = query(query);
+                List<OrderItem> orderItems = new ArrayList<>();
+
+                while (orderItemsResult.next()) {
+                    int order_id = Integer.parseInt(result.getString("order_id"));
+                    int item_id = Integer.parseInt(result.getString("item_id"));
+                    int quantity = Integer.parseInt(result.getString("quantity"));
+//                    We already have the business_id
+//                    int business_id = Integer.parseInt(result.getString("business_id"));
+                    String name = result.getString("name");
+                    int stock_left = Integer.parseInt(result.getString("stock_left"));
+                    double price = Integer.parseInt(result.getString("price"));
+                    String description = result.getString("description");
+                    String picture = result.getString("picture");
+                    int category_id = Integer.parseInt(result.getString("category_id"));
+
+                    Item item = new Item(item_id, business_id, name, stock_left, price, description, picture, category_id);
+                    OrderItem orderItem = new OrderItem(order_id, item_id, item, quantity);
+
+                    orderItems.add(orderItem);
+                }
+
+                orders.put(order, orderItems);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return orders;
     }
+
 }
