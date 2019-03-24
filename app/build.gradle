@@ -30,7 +30,7 @@ android {
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.1'
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libraries')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
@@ -44,5 +44,4 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha9-1"
     implementation 'android.arch.persistence.room:rxjava2:1.0.0-alpha9-1'
     implementation 'android.arch.lifecycle:extensions:1.0.0-alpha9-1'
-    implementation files('/Users/Kasper/Desktop/mysql-connector-java-8.0.15/mysql-connector-java-8.0.15.jar')
 }

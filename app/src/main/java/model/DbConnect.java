@@ -45,12 +45,13 @@ public final class DbConnect {
         try
         {
             statement = db.conn.createStatement();
-            int result = statement.executeUpdate("insert into users values ('something@something.com', 'mr test', 'abdc', 'pass', 1, 'apisdf');");
+            int result = statement.executeUpdate("insert into users values (null,'something@something.com', 'mr test', 'abdc', 'pass', 1, 'apisdf',null);");
             System.out.println(result);
         }
 
 
         catch (SQLException ex){
+            System.out.println(ex);
 
         }
     }
