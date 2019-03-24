@@ -29,6 +29,7 @@ public class SearchActivity extends AppCompatActivity implements OnItemClick, Ca
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.activity_main);
+
         orderLayout = findViewById(R.id.businesslist);
         orderLayout.setLayoutManager(new LinearLayoutManager(this));
         orderLayout.setItemAnimator(new DefaultItemAnimator());
@@ -36,6 +37,7 @@ public class SearchActivity extends AppCompatActivity implements OnItemClick, Ca
         if (Utilities.isOnline(this)){
 
 //            Conduct the Search here
+
 // Get the intent, verify the action and get the query
             Intent intent = getIntent();
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -66,6 +68,17 @@ public class SearchActivity extends AppCompatActivity implements OnItemClick, Ca
 
     @Override
     public void itemClick(View view, int position) {
+        switch (view.getId()){
+            case R.id.action_search:
+//                Do something
+            case R.id.each_business_name:
+                Intent intent = new Intent(SearchActivity.this,CategoryList.class);
+                startActivity(intent);
+                finish();
+//                save the business data in order to present correct categories in the
+//                CategoryList.java
+
+        }
 
     }
 
