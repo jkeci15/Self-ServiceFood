@@ -11,4 +11,7 @@
     <string name="continuePayement">Continue To Payment</string>
     <string name="search">Search</string>
     <string name="sign_out">Sign Out</string>
+    <string name="order_done">Done</string>
+    <string name="order_start">Start Working</string>
+    <string name="order_cancel">Cancel</string>
 </resources>

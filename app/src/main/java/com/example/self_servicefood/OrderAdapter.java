@@ -31,8 +31,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderHolder> {
     @Override
     public void onBindViewHolder(OrderHolder holder, int position) {
 
-           Order notes = objects.get(position);
-           holder.textView.setText(notes.getId());
+           Order order = objects.get(position);
+           holder.textView.setText(order.getId());
 
     }
 

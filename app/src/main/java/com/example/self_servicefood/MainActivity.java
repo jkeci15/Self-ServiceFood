@@ -44,13 +44,14 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
 //            TODO: Have to be careful where to link
+//            if user is staff go to orderStaff.class
+//            else go to searchActivity
             Intent intent = new Intent(MainActivity.this,SearchActivity.class);
             startActivity(intent);
             finish();
         }
 
-//        depending on user type set the Content View either activity_main or activity_order
-        setContentView(R.layout.activity_main);
+
 
 
     }

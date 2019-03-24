@@ -31,13 +31,12 @@ public class UserSharedPrefs {
 
     }
 
-
     public static User getUser(Context context)
     {
         SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFKEY,Context.MODE_PRIVATE);
         return new Gson().fromJson(sharedPreferences.getString(USER_KEY, "\n"),User.class);
     }
-    
+
     public static Business getBusiness(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(BUSINESS_PREFKEY,Context.MODE_PRIVATE);
         return new Gson().fromJson(sharedPreferences.getString(BUSINESS_KEY,"\n"),Business.class);
