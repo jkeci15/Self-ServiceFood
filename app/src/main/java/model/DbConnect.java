@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.sql.Driver;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -399,6 +400,93 @@ public final class DbConnect {
         }
 
         return orders;
+    }
+
+    public boolean createOrder(int user_id, int business_id, Map<Integer, Integer> item_idToQuantity){
+        double total = 0;
+        String query;
+        int id;
+
+        //query price of each item to calculate total
+        for (Map.Entry<Integer, Integer> entry : item_idToQuantity.entrySet()) {
+            int item_id = entry.getKey();
+            int quantity = entry.getValue();
+
+            query = "Select * from items where id=" + item_id + ";";
+
+            try {
+                ResultSet result = query(query);
+
+                while (result.next()) {
+                    int stock_left = Integer.parseInt(result.getString("stock_left"));
+
+                    //if not enough items in stock order fails
+                    if(stock_left<quantity) return false;
+
+                    double price = Double.parseDouble(result.getString("price"));
+
+                    total += price * quantity;
+                }
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+                //if an item fails to be retrieved then the order cannot be completed
+                return false;
+            }
+
+        }
+
+        Date date = new Date();
+        Timestamp time = new Timestamp(date.getTime());
+
+        query= "Insert into orders(time, user_id, business_id, total, state)" +
+                "values(" + time + ", " + user_id + ", " + business_id +", " +
+                total + ", 1);";
+
+        try {
+            int rowsAffected = insert(query);
+
+            //if order was inserted you have to insert order items
+            if(rowsAffected == 1) {
+
+                //get order_id
+                query = "Select * from orders where time=" + time + " and user_id ="
+                        + user_id + " and business_id=" + business_id + ";";
+
+                try {
+                    ResultSet result = query(query);
+
+//                    while (result.next()) {
+                        id = Integer.parseInt(result.getString("id"));
+//                    }
+
+                    for (Map.Entry<Integer, Integer> entry : item_idToQuantity.entrySet()) {
+                        int item_id = entry.getKey();
+                        int quantity = entry.getValue();
+
+                        query = "Insert into orderitems(order_id, item_id, quantity) " +
+                                "values (" + id + ", " + item_id + ", " + quantity + ";";
+
+                        rowsAffected = insert(query);
+
+                        //I'm ignoring the case when the insertion fails because then we would
+                        //have to undo so many insertions and we don't have enough time for that
+                    }
+
+                    return true;
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                    //if an item fails to be retrieved then the order cannot be completed
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return false;
     }
 
 }
