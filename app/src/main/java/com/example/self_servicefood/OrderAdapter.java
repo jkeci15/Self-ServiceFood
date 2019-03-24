@@ -6,11 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import java.util.List;
-
 import model.Order;
-import model.User;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderHolder> {
 

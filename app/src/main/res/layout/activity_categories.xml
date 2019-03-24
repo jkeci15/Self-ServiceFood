@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
+    android:background="@android:color/bright_foreground_light_disabled"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/itemlist"
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/itemlist"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--app:layout_constraintBottom_toTopOf="parent" />-->
+
+    <TextView
+        android:id="@+id/categorylist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="parent" />
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/proceedButton"
@@ -26,4 +36,4 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
 
-</RelativeLayout>
+</LinearLayout>

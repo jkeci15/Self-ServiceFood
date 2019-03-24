@@ -9,4 +9,6 @@
     <string name="signup_surname">Enter Surname</string>
     <string name="register">Register</string>
     <string name="continuePayement">Continue To Payment</string>
+    <string name="search">Search</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

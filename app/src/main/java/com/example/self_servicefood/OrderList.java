@@ -2,6 +2,7 @@ package com.example.self_servicefood;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,12 +24,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderList extends AppCompatActivity implements OnItemClick, Callback<List<Order>> {
+public class OrderList extends AppCompatActivity implements Callback<List<Order>> {
     public RecyclerView orderLayout;
     public OrderAdapter nAdapter;
 
-    public void onCreate(Bundle savedInstanceState) {
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         orderLayout = findViewById(R.id.orderlistCust);
@@ -35,30 +37,12 @@ public class OrderList extends AppCompatActivity implements OnItemClick, Callbac
         orderLayout.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
         if (Utilities.isOnline(this)){
 
-//            Request all orders made by this user
+//            Request all orders made by this user with status
+
         }
         else {
-//            SMTH::
+            Toast.makeText(OrderList.this,"Network not available",Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void itemClick(View view, int position) {
-        switch (view.getId())
-        {
-            case R.id.each_order_text:
-
-                Order order = nAdapter.getItem(position);
-                Intent intent = new Intent(this,OrderActivity.class);
-                intent.putExtra("id", order);
-                startActivity(intent);
-                finish();
-        }
-    }
-
-    @Override
-    public boolean itemLongClick(View view, int position) {
-        return false;
     }
 
 
@@ -66,6 +50,8 @@ public class OrderList extends AppCompatActivity implements OnItemClick, Callbac
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         return true;
     }
 

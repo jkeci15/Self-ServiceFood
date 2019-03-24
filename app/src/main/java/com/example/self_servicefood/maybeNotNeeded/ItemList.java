@@ -59,8 +59,7 @@
 //            case R.id.each_item_add:
 ////                Add the item to order
 //
-//
-////                Item item = nAdapter.getItem(position);
+//                Item item = nAdapter.getItem(position);
 ////                Intent intent = new Intent(this,);
 ////                intent.putExtra("id", item);
 ////                startActivity(intent);

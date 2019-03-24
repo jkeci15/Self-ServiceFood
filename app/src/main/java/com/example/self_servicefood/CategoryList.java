@@ -2,44 +2,70 @@ package com.example.self_servicefood;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import controller.UserSharedPrefs;
 import controller.Utilities;
 import model.Category;
+import model.Item;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CategoryList extends AppCompatActivity implements OnItemClick, Callback<List<Category>> {
+public class CategoryList extends AppCompatActivity implements OnItemClick, Callback<List<Item>> {
 
-    public RecyclerView categoryLayout;
-    public CategoryAdapter nAdapter;
+    public ExpandableListView categoryLayout;
+    public ExpandableListAdapter listAdapter;
+    public ItemAdapter nAdapter;
+    public List<Category> listHeader;
+    public HashMap<Category,List<Item>> listHashMap;
+    public Button proceedButton;
 
-    public void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
-        categoryLayout = findViewById(R.id.categorylist);
-        categoryLayout.setLayoutManager(new LinearLayoutManager(this));
-        categoryLayout.setItemAnimator(new DefaultItemAnimator());
-        categoryLayout.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
+        setContentView(R.layout.activity_menuitems);
+        categoryLayout = (ExpandableListView) findViewById(R.id.optionsList);
+
+        listAdapter = new ExpandableListAdapter(this,listHeader,listHashMap);
+        categoryLayout.setAdapter(listAdapter);
+
+        proceedButton = findViewById(R.id.proceedButton);
+        proceedButton.setOnClickListener(v->{
+            Intent intent = new Intent(CategoryList.this,ConfirmOrderActivity.class);
+            startActivity(intent);
+            finish();
+        });
+//        categoryLayout.setLayoutManager(new LinearLayoutManager(this));
+//        categoryLayout.setItemAnimator(new DefaultItemAnimator());
+//        categoryLayout.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
 
         if (Utilities.isOnline(this)) {
 
+//            TODO: Show items divided into categories and clickable + -
+            initData();
         }
         else {
             Toast.makeText(CategoryList.this,"Network isn't available!", Toast.LENGTH_LONG).show();
-
         }
+    }
+
+    private void initData() {
+        listHeader = new ArrayList<>();
+        listHashMap = new HashMap<>();
+//        add Categories of food
+        List<String> items = new ArrayList<>();
+//      add items
 
     }
 
@@ -47,12 +73,20 @@ public class CategoryList extends AppCompatActivity implements OnItemClick, Call
     public void itemClick(View view, int position) {
         switch (view.getId())
         {
-            case R.id.each_catergory_text:
-                Category category = nAdapter.getItem(position);
-                Intent intent = new Intent(this,ItemList.class);
-                intent.putExtra("id",category);
-                startActivity(intent);
-                finish();
+//            case R.id.each_catergory_text:
+//                Item item = nAdapter.getItem(position);
+//                Intent intent = new Intent(this,ItemList.class);
+//                intent.putExtra("id",item);
+//                startActivity(intent);
+//                finish();
+
+            case R.id.each_item_add:
+//                Add the item to order
+                Item item = nAdapter.getItem(position);
+
+            case R.id.each_item_delete:
+//                Remove item from the order
+                Item item1 = nAdapter.getItem(position);
         }
     }
 
@@ -64,6 +98,8 @@ public class CategoryList extends AppCompatActivity implements OnItemClick, Call
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         return true;
     }
 
@@ -80,13 +116,14 @@ public class CategoryList extends AppCompatActivity implements OnItemClick, Call
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
-    public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+    public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
 
     }
 
     @Override
-    public void onFailure(Call<List<Category>> call, Throwable t) {
+    public void onFailure(Call<List<Item>> call, Throwable t) {
 
     }
 }
