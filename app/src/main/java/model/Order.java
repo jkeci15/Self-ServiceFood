@@ -9,6 +9,14 @@ public class Order {
     private int bus_id;
     private double total;
     private int state;
+    /*
+    TODO: Discuss whether to save state as int or char or String?
+    Order states:
+    1- pending
+    2- processing
+    3- ready
+    4- cancelled
+     */
 
     public Order(int id, Timestamp time, int user_id, int bus_id, double total, int state) {
         this.id = id;

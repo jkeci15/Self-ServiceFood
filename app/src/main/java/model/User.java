@@ -7,6 +7,13 @@ public class User {
     private String surname;
     private String password;
     private int type;
+    /*
+    TODO: Discuss whether to save type as int or char or String?
+    User types:
+    1- manager
+    2- staff
+    3- customer
+     */
     private String picture;
     private int business_id;
 

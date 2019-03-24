@@ -44,5 +44,5 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha9-1"
     implementation 'android.arch.persistence.room:rxjava2:1.0.0-alpha9-1'
     implementation 'android.arch.lifecycle:extensions:1.0.0-alpha9-1'
-    implementation files('/Users/Kasper/Desktop/mysql-connector-java-8.0.15/mysql-connector-java-8.0.15.jar')
+    implementation files('libs/mysql-connector-java-8.0.15.jar')
 }
