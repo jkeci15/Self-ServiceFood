@@ -7,13 +7,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 
-import controller.Utilities;
+import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+import controller.Utilities;
+import model.Business;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class SearchActivity extends AppCompatActivity implements OnItemClick, Callback<List<Business>> {
+    public RecyclerView orderLayout;
+    public OrderAdapter nAdapter;
 
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -47,5 +57,25 @@ public class SearchActivity extends AppCompatActivity {
         assert searchManager != null;
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
         return true;
+    }
+
+    @Override
+    public void itemClick(View view, int position) {
+
+    }
+
+    @Override
+    public boolean itemLongClick(View view, int position) {
+        return false;
+    }
+
+    @Override
+    public void onResponse(Call<List<Business>> call, Response<List<Business>> response) {
+
+    }
+
+    @Override
+    public void onFailure(Call<List<Business>> call, Throwable t) {
+
     }
 }

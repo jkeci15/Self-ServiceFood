@@ -23,26 +23,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
     @Override
     public SearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater =(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return new SearchHolder(LayoutInflater
+        return new SearchHolder(LayoutInflater.from(context).inflate(resource, parent, false), onItemClick);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull SearchHolder holder, int position) {
 
+            Business business = objects.get(position);
+            holder.textView.setText(business.getId());
     }
 
-    @Override
-    public long getItemId(int i) {
-        return 0;
+
+    public Business getItemint(int i) {
+        return objects.get(i);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return objects.size();
     }
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
-    }
+
 }
