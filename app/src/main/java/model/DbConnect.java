@@ -91,7 +91,38 @@ public final class DbConnect {
         return password;
     }
 
-    //    TODO: S'KAM NERVA, but working on it, maybe it's ok
+    
+    public User authenticateUser (String email, String password){
+        String query = "Select * from users where email='" +email +"';";
+
+        //TODO: include hashing
+        String hashedPassword = hashPassword(password);
+
+        try {
+            ResultSet resultSet = query(query);
+
+            while (resultSet.next()){
+                String dbPassword = resultSet.getString("password");
+                if(!hashedPassword.equals(dbPassword)) return null;
+
+                int id = Integer.parseInt(resultSet.getString("id"));
+                String name = resultSet.getString("name");
+                String surname = resultSet.getString("surname");
+                String picture = resultSet.getString("picture");
+                int type = Integer.parseInt(resultSet.getString("type"));
+                int business_id = Integer.parseInt(resultSet.getString("business_id"));
+
+                return new User(id, email, name, surname, dbPassword, type, picture, business_id);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    //    TODO: maybe it's ok
     public User createUser(String name, String surname, String email, String password, int type, int business_id){
 
 //        check if email is taken

@@ -27,9 +27,6 @@ public class User {
         this.business_id = business_id;
         this.id = id;
     }
-    public User(){
-
-    }
 
     public int getId() {
         return id;
